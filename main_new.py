@@ -3,20 +3,28 @@ import xlwt
 
 # main project folder
 project = 'ProjectName'
-root = 'path'
+root = 'Path'
+
+
+def add_sheet(book, sheet_name, headers, header_row):
+    sheet = book.add_sheet(sheet_name)
+    for col in range(len(headers)):
+        sheet.write(0, col, headers[col])
+    return sheet, header_row
+
+headers1 = ['File Name', 'Method Name']
+headers2 = ['File Name', 'Method Name', 'Validation']
 
 book = xlwt.Workbook()
-methods_only = book.add_sheet('methods_only')  # , cell_overwrite_ok=True
-methods_and_validations = book.add_sheet('methods_and_validations')
-methods_only.write(0,0,'File Name'); methods_only.write(0,1,'Method Name')
-methods_and_validations.write(0,0,'File Name'); methods_and_validations.write(0,1,'Method Name')
-methods_and_validations.write(0,2,'Validation'); rownum1 = 1; rownum2 = 1
+methods_only, rownum1 = add_sheet(book, 'methods_only', headers1, 1)
+methods_and_validations, rownum2 = add_sheet(book, 'methods_and_validations', headers2, 1)
+
 
 for dirpath, dirnames, filenames in os.walk(root):
     for filename in filenames:
         if filename.endswith('.vb') and 'designer' not in filename.lower():
             filepath = os.path.join(dirpath, filename)
-            file = open(filepath, 'r') # ,  encoding = 'unicode_escape'
+            file = open(filepath, 'r', encoding = 'unicode_escape')
             lines = file.readlines()
             for line in lines:
                 words = line.split()
