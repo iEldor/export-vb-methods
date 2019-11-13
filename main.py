@@ -3,7 +3,7 @@ import os
 # main project folder
 root = 'C:/Users/eldor/Downloads/pytechdegree/export-vb-methods'
 
-# option to extract if/elseif validations along with method names
+# option to extract if/elseif business validations along with method names
 include_validations = False
 if include_validations:
     export = open('methods_with_validations.csv', 'a'); header = 'File, Method, Validation\n'
